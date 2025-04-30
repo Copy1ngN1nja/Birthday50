@@ -8,16 +8,38 @@ document.getElementById('surveyForm').addEventListener('submit', async (e) => {
     };
   
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbzrGvHdTwF9yEQNIFOAJCqGalfJJoyHMASDKuQLOQ3EpHqInZkO8RdvvF7MI8YQ3ZeEyQ/exec', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
+      // Создаем hidden iframe для отправки формы без CORS-ограничений
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
       
-      document.getElementById('message').innerHTML = '✅ Спасибо за ответ!';
+      // Создаем форму внутри iframe
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = 'https://script.google.com/macros/s/AKfycbx1dSs0pum6eS-PcH9X0H8csFD0JiE4RXobWxmQMfI8BjfHeUnrhRnsyj4TxCjWBjvx4A/exec';
+      
+      // Добавляем поля формы
+      for (const key in formData) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = formData[key];
+        form.appendChild(input);
+      }
+      
+      // Добавляем форму в iframe и отправляем
+      iframe.contentDocument.body.appendChild(form);
+      form.submit();
+      
+      // Показываем сообщение об успехе
+      document.getElementById('message').innerHTML = '✅ Данные отправлены!';
       e.target.reset();
+      
+      // Удаляем iframe через 5 секунд
+      setTimeout(() => document.body.removeChild(iframe), 5000);
+      
     } catch (error) {
-      document.getElementById('message').innerHTML = '❌ Ошибка отправки';
+      document.getElementById('message').innerHTML = '❌ Ошибка: ' + error.message;
     }
   });
   

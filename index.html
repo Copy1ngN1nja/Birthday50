@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Опросник</title>
+    <style>
+        .container { max-width: 600px; margin: 2rem auto; padding: 20px; }
+        input, textarea { width: 100%; padding: 8px; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Опрос гостей</h1>
+        <form id="surveyForm">
+            <input type="text" name="name" placeholder="Ваше имя" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <textarea name="comment" placeholder="Ваши пожелания"></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+        <div id="message"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

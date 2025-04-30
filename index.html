@@ -6,6 +6,11 @@
     <style>
         .container { max-width: 600px; margin: 2rem auto; padding: 20px; }
         input, textarea { width: 100%; padding: 8px; margin: 5px 0; }
+        fieldset { border: 1px solid #ddd; margin: 10px 0; padding: 15px; border-radius: 5px; }
+        legend { font-weight: bold; padding: 0 10px; }
+        .radio-group, .checkbox-group { display: flex; gap: 15px; margin: 10px 0; }
+        .radio-group label, .checkbox-group label { display: flex; align-items: center; gap: 5px; }
+        input[type="radio"], input[type="checkbox"] { width: auto; margin: 0; }
     </style>
 </head>
 <body>
@@ -14,6 +19,27 @@
         <form id="surveyForm">
             <input type="text" name="name" placeholder="Ваше имя" required>
             <input type="email" name="email" placeholder="Email" required>
+            
+            <fieldset>
+                <legend>Ваше присутствие</legend>
+                <div class="radio-group">
+                    <label><input type="radio" name="attendance" value="yes" required> Да, буду</label>
+                    <label><input type="radio" name="attendance" value="no"> Нет, не смогу</label>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Предпочитаемые напитки (можно выбрать несколько)</legend>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="drinks" value="wine"> Вино</label>
+                    <label><input type="checkbox" name="drinks" value="champagne"> Шампанское</label>
+                    <label><input type="checkbox" name="drinks" value="vodka"> Водка</label>
+                    <label><input type="checkbox" name="drinks" value="whiskey"> Виски</label>
+                    <label><input type="checkbox" name="drinks" value="soda"> Безалкогольное</label>
+                    <label><input type="checkbox" name="drinks" value="konyak"> Коньяк</label>
+                </div>
+            </fieldset>
+            
             <textarea name="comment" placeholder="Ваши пожелания"></textarea>
             <button type="submit">Отправить</button>
         </form>

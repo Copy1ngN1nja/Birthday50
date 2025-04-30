@@ -53,3 +53,5 @@ document.getElementById('surveyForm').addEventListener('submit', async (e) => {
       document.getElementById('message').innerHTML = `❌ Ошибка: ${error.message}`;
       console.error('Детали ошибки:', error);
     }
+  });
+  

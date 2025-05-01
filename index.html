@@ -2,34 +2,275 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Опросник</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Юбилей 50 лет</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        .container { max-width: 600px; margin: 2rem auto; padding: 20px; }
-        input, textarea { width: 100%; padding: 8px; margin: 5px 0; }
-        fieldset { border: 1px solid #ddd; margin: 10px 0; padding: 15px; border-radius: 5px; }
-        legend { font-weight: bold; padding: 0 10px; }
-        .radio-group, .checkbox-group { display: flex; gap: 15px; margin: 10px 0; }
-        .radio-group label, .checkbox-group label { display: flex; align-items: center; gap: 5px; }
-        input[type="radio"], input[type="checkbox"] { width: auto; margin: 0; }
+        :root {
+            --gold: #C5A47E;
+            --dark: #1A1A1A;
+            --accent: #3D2B1F;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--dark);
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: rgba(26, 26, 26, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 50px rgba(197, 164, 126, 0.2);
+        }
+
+        .gold-number {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40vw;
+            font-family: 'Playfair Display', serif;
+            color: rgba(197, 164, 126, 0.05);
+            z-index: 0;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .invitation-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .event-details {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(197, 164, 126, 0.05);
+            border-radius: 12px;
+            border: 1px solid var(--gold);
+        }
+
+        .event-details p {
+            margin: 10px 0;
+        }
+
+        .highlight {
+            color: var(--gold);
+            font-weight: 500;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            font-size: 16px;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        input:focus, textarea:focus {
+            background: rgba(255,255,255,0.15);
+            outline: none;
+            box-shadow: 0 0 15px rgba(197, 164, 126, 0.3);
+        }
+
+        fieldset {
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        legend {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 1.3em;
+            padding: 0 15px;
+        }
+
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 12px 20px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        label:hover {
+            background: rgba(197, 164, 126, 0.1);
+            border-color: var(--gold);
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--gold);
+        }
+
+        button {
+            background: linear-gradient(45deg, var(--gold), #B08F69);
+            color: var(--dark);
+            border: none;
+            padding: 18px 40px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(197, 164, 126, 0.4);
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .event-details {
+                font-size: 0.95em;
+                padding: 15px;
+            }
+
+            .radio-group, .checkbox-group {
+                flex-direction: column;
+            }
+        }
+
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: float 3s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
     </style>
 </head>
 <body>
+    <div class="gold-number">50</div>
+    
+    <div class="particles">
+        <!-- JavaScript добавит частицы автоматически -->
+    </div>
+
     <div class="container">
-        <h1>Опрос гостей</h1>
+        <div class="invitation-header">
+            <h1>50 лет - Время праздновать!</h1>
+            <div class="event-details">
+                <p>Поэтому приглашаю 12 июля 2025 года отметить день рождения Бори Колосова!</p>
+                <p>Где? <span class="highlight">Клуб-отель "Царская Охота"</span></p>
+                <p>Новокузнецк, село Сосновка, Лесная, 1.</p>
+                <p>Когда? <span class="highlight">15:30</span></p>
+                <p>В чем? <span class="highlight">В хорошем настроении!</span></p>
+            </div>
+        </div>
+
         <form id="surveyForm">
-            <input type="text" name="name" placeholder="Ваше имя" required>
-            <input type="email" name="email" placeholder="Email" required>
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Ваше ФИО" required>
+            </div>
             
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Ваш email" required>
+            </div>
+
             <fieldset>
                 <legend>Ваше присутствие</legend>
                 <div class="radio-group">
-                    <label><input type="radio" name="attendance" value="yes" required> Да, буду</label>
-                    <label><input type="radio" name="attendance" value="no"> Нет, не смогу</label>
+                    <label>
+                        <input type="radio" name="attendance" value="yes" required>
+                        <span>С радостью приду</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="attendance" value="no">
+                        <span>К сожалению, не смогу</span>
+                    </label>
                 </div>
             </fieldset>
-            
+
             <fieldset>
-                <legend>Предпочитаемые напитки (можно выбрать несколько)</legend>
+                <legend>Предпочтения в напитках</legend>
                 <div class="checkbox-group">
                     <label><input type="checkbox" name="drinks" value="wine"> Вино</label>
                     <label><input type="checkbox" name="drinks" value="champagne"> Шампанское</label>
@@ -39,12 +280,47 @@
                     <label><input type="checkbox" name="drinks" value="konyak"> Коньяк</label>
                 </div>
             </fieldset>
-            
-            <textarea name="comment" placeholder="Ваши пожелания"></textarea>
-            <button type="submit">Отправить</button>
+
+            <div class="form-group">
+                <fieldset>
+                    <legend>Нужен ли номер в отеле?</legend>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="hotel" value="yes" required>
+                            <span>Да, нужен</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="hotel" value="no">
+                            <span>Нет, не нужен</span>
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button type="submit">Подтвердить участие</button>
         </form>
         <div id="message"></div>
     </div>
+
+    <script>
+        function createParticles() {
+            const container = document.querySelector('.particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.cssText = `
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    width: ${Math.random() * 4 + 2}px;
+                    height: ${Math.random() * 4 + 2}px;
+                    animation-delay: ${Math.random() * 2}s;
+                    opacity: ${Math.random() * 0.4 + 0.1};
+                `;
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -5,14 +5,18 @@ document.getElementById('surveyForm').addEventListener('submit', async (e) => {
     const formData = {
       name: e.target.name.value.trim(),
       email: e.target.email.value.trim(),
-      comment: e.target.comment.value.trim(),
       attendance: '',
-      drinks: []
+      drinks: [],
+      hotel: ''
     };
   
     // Получаем присутствие
     const attendanceRadio = e.target.querySelector('input[name="attendance"]:checked');
     if (attendanceRadio) formData.attendance = attendanceRadio.value;
+
+    // Получаем отель
+    const hotelRadio = e.target.querySelector('input[name="hotel"]:checked');
+    if (hotelRadio) formData.hotel = hotelRadio.value;
   
     // Получаем напитки
     const drinkCheckboxes = Array.from(e.target.querySelectorAll('input[name="drinks"]:checked'));
@@ -27,7 +31,7 @@ document.getElementById('surveyForm').addEventListener('submit', async (e) => {
       // Создаем форму
       const form = document.createElement('form');
       form.method = 'POST';
-      form.action = 'https://script.google.com/macros/s/AKfycbzfxIl1Pop409k2YpPM0cU4GNj--858Rkt2g9RCqQlhR2d62BB158N7i0xGQw7zwN_M4g/exec';
+      form.action = 'https://script.google.com/macros/s/AKfycbxXXmpf_h6icaHg6cUeWflx8A6S4E92zWjLcmW419QDe5-JWgTzab1ZOT8SC1anFG-ViA/exec';
       
       // Добавляем данные
       for (const [key, value] of Object.entries(formData)) {

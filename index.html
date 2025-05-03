@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Юбилей 50 лет</title>
+    <title>Приглашение на Юбилей</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -230,15 +230,11 @@
 <body>
     <div class="gold-number">50</div>
     
-    <div class="particles">
-        <!-- JavaScript добавит частицы автоматически -->
-    </div>
-
     <div class="container">
         <div class="invitation-header">
             <h1>50 лет - Время праздновать!</h1>
             <div class="event-details">
-                <p>Поэтому приглашаю 12 июля 2025 года отметить день рождения Бори Колосова!</p>
+                <p>Поэтому приглашаю 12 июля 2025 года отметить день рождения Бориса Колосова!</p>
                 <p>Где? <span class="highlight">Клуб-отель "Царская Охота"</span></p>
                 <p>Новокузнецк, село Сосновка, Лесная, 1.</p>
                 <p>Когда? <span class="highlight">15:30</span></p>
@@ -248,7 +244,7 @@
 
         <form id="surveyForm">
             <div class="form-group">
-                <input type="text" name="name" placeholder="Ваше ФИО" required>
+                <input type="text" name="name" placeholder="Ваше имя" required>
             </div>
             
             <div class="form-group">
@@ -260,39 +256,61 @@
                 <div class="radio-group">
                     <label>
                         <input type="radio" name="attendance" value="yes" required>
-                        <span>С радостью приду</span>
+                        Да, буду
                     </label>
                     <label>
                         <input type="radio" name="attendance" value="no">
-                        <span>К сожалению, не смогу</span>
+                        К сожалению, не смогу
                     </label>
                 </div>
             </fieldset>
 
-            <fieldset>
-                <legend>Предпочтения в напитках</legend>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="drinks" value="wine"> Вино</label>
-                    <label><input type="checkbox" name="drinks" value="champagne"> Шампанское</label>
-                    <label><input type="checkbox" name="drinks" value="vodka"> Водка</label>
-                    <label><input type="checkbox" name="drinks" value="whiskey"> Виски</label>
-                    <label><input type="checkbox" name="drinks" value="soda"> Безалкогольное</label>
-                    <label><input type="checkbox" name="drinks" value="konyak"> Коньяк</label>
-                </div>
-            </fieldset>
+            <div class="additional-fields">
+                <fieldset>
+                    <legend>Будете с парой?</legend>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="couple" value="yes">
+                            Да
+                        </label>
+                        <label>
+                            <input type="radio" name="couple" value="no">
+                            Нет
+                        </label>
+                    </div>
+                </fieldset>
 
-            <div class="form-group">
+                <fieldset class="drinks-section">
+                    <legend>Ваши предпочтения в напитках</legend>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="drinks" value="white_wine"> Белое вино</label>
+                        <label><input type="checkbox" name="drinks" value="red_wine"> Красное вино</label>
+                        <label><input type="checkbox" name="drinks" value="champagne"> Шампанское</label>
+                        <label><input type="checkbox" name="drinks" value="vodka"> Водка</label>
+                        <label><input type="checkbox" name="drinks" value="whiskey"> Виски</label>
+                        <label><input type="checkbox" name="drinks" value="soda"> Безалкогольное</label>
+                        <label><input type="checkbox" name="drinks" value="konyak"> Коньяк</label>
+                    </div>
+                </fieldset>
+
+                <fieldset id="partner-drinks" style="display: none;">
+                    <legend>Предпочтения вашей пары</legend>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="partner_drinks" value="white_wine"> Белое вино</label>
+                        <label><input type="checkbox" name="partner_drinks" value="red_wine"> Красное вино</label>
+                        <label><input type="checkbox" name="partner_drinks" value="champagne"> Шампанское</label>
+                        <label><input type="checkbox" name="partner_drinks" value="vodka"> Водка</label>
+                        <label><input type="checkbox" name="partner_drinks" value="whiskey"> Виски</label>
+                        <label><input type="checkbox" name="partner_drinks" value="soda"> Безалкогольное</label>
+                        <label><input type="checkbox" name="partner_drinks" value="konyak"> Коньяк</label>
+                    </div>
+                </fieldset>
+
                 <fieldset>
                     <legend>Нужен ли номер в отеле?</legend>
                     <div class="radio-group">
-                        <label>
-                            <input type="radio" name="hotel" value="yes" required>
-                            <span>Да, нужен</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="hotel" value="no">
-                            <span>Нет, не нужен</span>
-                        </label>
+                        <label><input type="radio" name="hotel" value="yes"> Да</label>
+                        <label><input type="radio" name="hotel" value="no"> Нет</label>
                     </div>
                 </fieldset>
             </div>
@@ -302,25 +320,6 @@
         <div id="message"></div>
     </div>
 
-    <script>
-        function createParticles() {
-            const container = document.querySelector('.particles');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.cssText = `
-                    left: ${Math.random() * 100}%;
-                    top: ${Math.random() * 100}%;
-                    width: ${Math.random() * 4 + 2}px;
-                    height: ${Math.random() * 4 + 2}px;
-                    animation-delay: ${Math.random() * 2}s;
-                    opacity: ${Math.random() * 0.4 + 0.1};
-                `;
-                container.appendChild(particle);
-            }
-        }
-        createParticles();
-    </script>
     <script src="script.js"></script>
 </body>
 </html>

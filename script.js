@@ -1,61 +1,96 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const additionalFields = document.querySelector('.additional-fields');
+  additionalFields.style.display = 'block';
+  
+  document.querySelectorAll('input[name="attendance"]').forEach(radio => {
+      radio.addEventListener('change', handleAttendanceChange);
+  });
+  
+  document.querySelectorAll('input[name="couple"]').forEach(radio => {
+      radio.addEventListener('change', handleCoupleChange);
+  });
+});
+
+function handleAttendanceChange(e) {
+  const additionalFields = document.querySelector('.additional-fields');
+  const shouldShow = e.target.value === 'yes';
+  
+  additionalFields.style.display = shouldShow ? 'block' : 'none';
+  
+  if (!shouldShow) {
+      resetAdditionalFields();
+      document.getElementById('partner-drinks').style.display = 'none';
+  }
+}
+
+function handleCoupleChange(e) {
+  const partnerDrinks = document.getElementById('partner-drinks');
+  partnerDrinks.style.display = e.target.value === 'yes' ? 'block' : 'none';
+}
+
+function resetAdditionalFields() {
+  document.querySelectorAll('.additional-fields input').forEach(input => {
+      if (input.type === 'checkbox') input.checked = false;
+      if (input.type === 'radio') input.checked = false;
+  });
+}
+
 document.getElementById('surveyForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    // Собираем данные формы
-    const formData = {
+  e.preventDefault();
+  
+  const formData = {
       name: e.target.name.value.trim(),
       email: e.target.email.value.trim(),
-      attendance: '',
+      attendance: document.querySelector('input[name="attendance"]:checked')?.value || 'no',
+      couple: 'no',
       drinks: [],
-      hotel: ''
-    };
-  
-    // Получаем присутствие
-    const attendanceRadio = e.target.querySelector('input[name="attendance"]:checked');
-    if (attendanceRadio) formData.attendance = attendanceRadio.value;
+      partner_drinks: [],
+      hotel: 'no'
+  };
 
-    // Получаем отель
-    const hotelRadio = e.target.querySelector('input[name="hotel"]:checked');
-    if (hotelRadio) formData.hotel = hotelRadio.value;
-  
-    // Получаем напитки
-    const drinkCheckboxes = Array.from(e.target.querySelectorAll('input[name="drinks"]:checked'));
-    formData.drinks = drinkCheckboxes.map(checkbox => checkbox.value);
-  
-    try {
-      // Создаем iframe для обхода CORS
+  if (formData.attendance === 'yes') {
+      formData.couple = document.querySelector('input[name="couple"]:checked')?.value || 'no';
+      formData.hotel = document.querySelector('input[name="hotel"]:checked')?.value || 'no';
+      
+      // Сбор напитков
+      formData.drinks = Array.from(document.querySelectorAll('input[name="drinks"]:checked'))
+          .map(checkbox => checkbox.value);
+      
+      // Сбор напитков пары
+      if (formData.couple === 'yes') {
+          formData.partner_drinks = Array.from(document.querySelectorAll('input[name="partner_drinks"]:checked'))
+              .map(checkbox => checkbox.value);
+      }
+  }
+
+  try {
       const iframe = document.createElement('iframe');
       iframe.style.display = 'none';
       document.body.appendChild(iframe);
-  
-      // Создаем форму
+      
       const form = document.createElement('form');
       form.method = 'POST';
-      form.action = 'https://script.google.com/macros/s/AKfycbxXXmpf_h6icaHg6cUeWflx8A6S4E92zWjLcmW419QDe5-JWgTzab1ZOT8SC1anFG-ViA/exec';
+      form.action = 'https://script.google.com/macros/s/AKfycbyLXsqyvHFVgax-ZX9U_XwuUsuQrkAsK0u4nAhXH0kbVHtH-eCt4EbttJUlu-rM28j0TQ/exec';
       
-      // Добавляем данные
       for (const [key, value] of Object.entries(formData)) {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = (Array.isArray(value)) ? value.join(', ') : value;
-        form.appendChild(input);
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          input.value = Array.isArray(value) ? value.join(',') : value;
+          form.appendChild(input);
       }
-  
-      // Отправляем форму
+      
       iframe.contentDocument.body.appendChild(form);
       form.submit();
-  
-      // Обработка успеха
+      
       document.getElementById('message').innerHTML = '✅ Данные отправлены!';
       e.target.reset();
-  
-      // Удаляем iframe
-      setTimeout(() => iframe.remove(), 5000);
-  
-    } catch (error) {
+      setTimeout(() => {
+          iframe.remove();
+          document.querySelector('.additional-fields').style.display = 'none';
+      }, 5000);
+  } catch (error) {
       document.getElementById('message').innerHTML = `❌ Ошибка: ${error.message}`;
       console.error('Детали ошибки:', error);
-    }
-  });
-  
+  }
+});

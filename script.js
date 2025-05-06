@@ -83,7 +83,7 @@ document.getElementById('surveyForm').addEventListener('submit', async (e) => {
       iframe.contentDocument.body.appendChild(form);
       form.submit();
       
-      document.getElementById('message').innerHTML = '✅ Данные отправлены!';
+      document.getElementById('message').innerHTML = '✅ Данные отправлены! До встречи, друзья!';
       e.target.reset();
       setTimeout(() => {
           iframe.remove();

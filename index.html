@@ -39,7 +39,7 @@
             box-shadow: 0 0 50px rgba(197, 164, 126, 0.2);
         }
 
-        .gold-number {
+        /* .gold-number {
             position: fixed;
             top: 50%;
             left: 50%;
@@ -50,6 +50,16 @@
             z-index: 0;
             user-select: none;
             pointer-events: none;
+        } */
+
+        .gold-number {
+            display: inline-block;
+            font-family: 'Arial', serif;
+            font-size: 2.9rem;
+            color: #C5A47E;
+            vertical-align: baseline;
+            margin-right: 1px;
+            line-height: 1;
         }
 
         .invitation-header {
@@ -228,17 +238,21 @@
     </style>
 </head>
 <body>
-    <div class="gold-number">50</div>
     
     <div class="container">
         <div class="invitation-header">
-            <h1>50 лет - Время праздновать!</h1>
+            <h1>
+            <span class="gold-number">50</span>
+            <span class="heading-text">лет - время праздновать!</span>
+            </h1>
+            <!-- <h1>50 лет - Время праздновать!</h1> -->
             <div class="event-details">
-                <p>Поэтому приглашаю 12 июля 2025 года отметить день рождения Бориса Колосова!</p>
+                <p>Поэтому приглашаю 12 июля 2025 года отметить <span class="highlight">мой юбилей!</span></p>
                 <p>Где? <span class="highlight">Клуб-отель "Царская Охота"</span></p>
                 <p>Новокузнецк, село Сосновка, Лесная, 1.</p>
                 <p>Когда? <span class="highlight">15:30</span></p>
                 <p>В чем? <span class="highlight">В хорошем настроении!</span></p>
+                <p>По всем организационным вопросам и бронированию номеров<br> обращаться по тел. 89236383121 Екатерина.</p>
             </div>
         </div>
 
